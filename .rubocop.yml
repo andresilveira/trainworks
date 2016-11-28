@@ -6,4 +6,9 @@ SpaceInsideBrackets:
   Enabled: false
 Style/FrozenStringLiteralComment:
   Enabled: false
-  
+Style/FrozenStringLiteralComment:
+  Enabled: false
+Metrics/BlockLength:
+  Enabled: true
+  Exclude:
+    - spec/**/*
