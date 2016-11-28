@@ -2,6 +2,8 @@ require 'trainworks/version'
 
 # TODO: add documentation
 # Trainworks
-module Trainworks
-  # Your code goes here...
+class Trainworks
+  def initialize(args)
+    # to be implemented...
+  end
 end
