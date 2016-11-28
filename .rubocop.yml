@@ -1,0 +1,9 @@
+Metrics/LineLength:
+  Max: 120
+SpaceInsideHashLiteralBraces:
+  Enabled: false
+SpaceInsideBrackets:
+  Enabled: false
+Style/FrozenStringLiteralComment:
+  Enabled: false
+  
