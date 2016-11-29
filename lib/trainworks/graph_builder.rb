@@ -10,7 +10,7 @@ module Trainworks
     end
 
     def self.add_edge(graph, from, to, distance)
-      if graph.has_key?(from)
+      if graph.key?(from)
         graph[from][to] = distance
       else
         graph[from] = Hash[to, distance]
@@ -20,7 +20,7 @@ module Trainworks
 
     class UnknwonRouteFormat < ArgumentError; end
 
-    private
+    private_class_method
 
     def self.assert_route_is_valid(route)
       raise UnknwonRouteFormat if route.any?(&:nil?)

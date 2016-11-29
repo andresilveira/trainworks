@@ -45,14 +45,14 @@ describe Trainworks::GraphBuilder do
             'C' => 2
           },
           'B' => {
-            'C' =>  3
+            'C' => 3
           }
         )
       end
     end
 
     context 'when the input contain tuples in a unknown format' do
-      let(:input) { [['A', 'B'], ['C', 2]] }
+      let(:input) { [%w(A B)] }
 
       it 'raises UnknwonRouteFormat' do
         expect { builder.build(input) }.to raise_error(Trainworks::GraphBuilder::UnknwonRouteFormat)
