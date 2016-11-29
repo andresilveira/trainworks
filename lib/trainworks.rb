@@ -1,6 +1,7 @@
 require 'trainworks/version'
 require 'trainworks/railroad'
 require 'trainworks/file_parser'
+require 'trainworks/graph_builder'
 
 # TODO: add documentation
 # Trainworks
