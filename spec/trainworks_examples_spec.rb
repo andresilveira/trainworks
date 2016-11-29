@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-describe Trainworks do
+describe Trainworks::Railroad do
   # examples/input.txt
   # AB5, BC4, CD8, DC8, DE6, AD5, CE2, EB3, AE7
-  let(:railroad) { Trainworks.new('examples/input.txt') }
+  let(:railroad) { Trainworks::Railroad.new('examples/input.txt') }
 
   describe 'The distance of the route' do
     before { pending 'Not implemented' }

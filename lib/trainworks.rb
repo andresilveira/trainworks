@@ -1,10 +1,8 @@
 require 'trainworks/version'
+require 'trainworks/railroad'
 require 'trainworks/file_parser'
 
 # TODO: add documentation
 # Trainworks
-class Trainworks
-  def initialize(args)
-    # to be implemented...
-  end
+module Trainworks
 end
