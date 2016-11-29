@@ -17,12 +17,12 @@ describe Trainworks::GraphBuilder do
 
       it 'returns a hash representing a list of adjacencies between the nodes' do
         expect(builder.build(input)).to eq(
-          'A': {
-            'B': 1,
-            'C': 2
+          'A' => {
+            'B' => 1,
+            'C' => 2
           },
-          'B': {
-            'C': 3
+          'B' => {
+            'C' =>  3
           }
         )
       end
