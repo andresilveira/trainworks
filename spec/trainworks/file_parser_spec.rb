@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'fileutils'
 
 INPUT_FILE_PATH = 'tmp/test_input'.freeze
 
