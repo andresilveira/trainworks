@@ -25,7 +25,7 @@ describe FileParser do
       let(:file_parser) { FileParser.new(INPUT_FILE_PATH) }
 
       it 'raises InvalidRailroadInputFormat error' do
-        expect{file_parser.parse}.to raise_error(InvalidRailroadInputFormat)
+        expect{file_parser.parse}.to raise_error(FileParser::InvalidRailroadInputFormat)
       end
     end
 
