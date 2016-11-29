@@ -1,4 +1,5 @@
 require 'trainworks/version'
+require 'trainworks/file_parser'
 
 # TODO: add documentation
 # Trainworks
