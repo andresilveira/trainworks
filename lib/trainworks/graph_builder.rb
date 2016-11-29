@@ -1,4 +1,6 @@
 module Trainworks
+  # GraphBuilder is responsible to transform tuples (in our case Routes)
+  # into a Hash which represents a list of adjacencies between the nodes.
   module GraphBuilder
     def self.build(tuples)
       # TODO: refactor tuple to be a Route struct or something similar
