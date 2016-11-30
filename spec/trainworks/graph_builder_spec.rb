@@ -36,7 +36,13 @@ describe Trainworks::GraphBuilder do
     end
 
     context 'when the input contain tuples in the form ["A", "B", 1]' do
-      let(:input) { [['A', 'B', 1], ['A', 'C', 2], ['B', 'C', 3]] }
+      let(:input) do
+        [
+          Trainworks::Route.new(from: 'A', to: 'B', distance: 1),
+          Trainworks::Route.new(from: 'A', to: 'C', distance: 2),
+          Trainworks::Route.new(from: 'B', to: 'C', distance: 3)
+        ]
+      end
 
       it 'returns a hash representing a list of adjacencies between the nodes' do
         expect(builder.build(input)).to eq(
@@ -48,14 +54,6 @@ describe Trainworks::GraphBuilder do
             'C' => 3
           }
         )
-      end
-    end
-
-    context 'when the input contain tuples in a unknown format' do
-      let(:input) { [%w(A B)] }
-
-      it 'raises UnknwonRouteFormat' do
-        expect { builder.build(input) }.to raise_error(Trainworks::GraphBuilder::UnknwonRouteFormat)
       end
     end
   end
