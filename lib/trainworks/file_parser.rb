@@ -1,3 +1,5 @@
+require 'trainworks/file_parser/invalid_railroad_input_format'
+
 module Trainworks
   # FileParser is responsible for parsing the input file
   # @example
@@ -16,15 +18,12 @@ module Trainworks
     # @return [Array] array of tuples in the form ["A", "B", 10] for a tuple AB10
     # @raise [InvalidRailroadInputFormat] if the tuple doesn't match SINGLE_TUPLE_REGEX
     def parse
-      clean_string(@raw_content).split(',').map do |tuple|
-        matched_tuple = tuple.match(SINGLE_TUPLE_REGEX)
-        raise InvalidRailroadInputFormat if matched_tuple.nil?
+      clean_string(@raw_content).split(',').map do |route_string|
+        matched_route_string = route_string.match(SINGLE_TUPLE_REGEX)
+        raise InvalidRailroadInputFormat.new(route_string) if matched_route_string.nil?
 
-        matched_tuple.captures
       end
     end
-
-    class InvalidRailroadInputFormat < ArgumentError; end
 
     private
 
