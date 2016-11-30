@@ -42,4 +42,9 @@ describe Trainworks::Route do
       expect(route.distance).to eq(1.6)
     end
   end
+
+  it 'is considered equal to another route when "from", "to" and "distance" are the same' do
+    another_route = Trainworks::Route.new(from: 'A', to: 'B', distance: 5.6)
+    expect(route).to eq(another_route)
+  end
 end
