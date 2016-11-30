@@ -1,4 +1,6 @@
 module Trainworks
+  # TODO: encapsulate the idea of a Graph inside a class instead of relying
+  # on Hash class
   # GraphBuilder is responsible to transform tuples (in our case Routes)
   # into a Hash which represents a list of adjacencies between the nodes.
   module GraphBuilder
