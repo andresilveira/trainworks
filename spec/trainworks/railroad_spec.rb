@@ -1,9 +1,11 @@
 require 'spec_helper'
 
 describe Trainworks::Railroad do
-  let(:file_parser)     { double(new: double(parse: true)) }
-  let(:graph_builder)   { double(build: true) }
-  let(:graph_algorithm) { double(new: true) }
+  let(:file_parser)         { double(new: double(parse: true)) }
+  let(:graph_builder)       { double(build: true) }
+  let(:algorithm_instance)  { double(distance: true) }
+  let(:graph_algorithm)     { double(new: algorithm_instance) }
+
   let(:railroad) do
     Trainworks::Railroad.new(
       'file_name',
@@ -15,7 +17,7 @@ describe Trainworks::Railroad do
 
   describe 'calling #distance("A-B-C")' do
     it 'calls distance on its graph_algorithm passing an array as argument' do
-      expect(graph_algorithm).to receive(:distance).once.with(%w(A B C))
+      expect(algorithm_instance).to receive(:distance).once.with(%w(A B C))
       railroad.distance('A-B-C')
     end
   end
