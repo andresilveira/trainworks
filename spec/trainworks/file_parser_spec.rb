@@ -36,7 +36,7 @@ describe Trainworks::FileParser do
       it 'returns an array with the routes described' do
         expect(file_parser.parse).to eq [
           Trainworks::Route.new(from: 'A', to: 'B', distance: 1),
-          Trainworks::Route.new(from: 'C', to: 'D', distance: 2),
+          Trainworks::Route.new(from: 'C', to: 'D', distance: 2)
         ]
       end
     end

@@ -8,10 +8,10 @@ module Trainworks
       self.distance = distance.to_f
     end
 
-    def ==(another_route)
-      from == another_route.from &&
-      to == another_route.to &&
-      distance == another_route.distance
+    def ==(other)
+      from == other.from &&
+        to == other.to &&
+        distance == other.distance
     end
   end
 end

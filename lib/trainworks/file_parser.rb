@@ -20,12 +20,12 @@ module Trainworks
     def parse
       clean_string(@raw_content).split(',').map do |route_string|
         matched_route_string = route_string.match(SINGLE_TUPLE_REGEX)
-        raise InvalidRailroadInputFormat.new(route_string) if matched_route_string.nil?
+        raise InvalidRailroadInputFormat, route_string if matched_route_string.nil?
 
         Route.new(
           from:     matched_route_string[:from],
           to:       matched_route_string[:to],
-          distance: matched_route_string[:distance],
+          distance: matched_route_string[:distance]
         )
       end
     end
