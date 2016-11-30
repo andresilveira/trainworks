@@ -1,5 +1,7 @@
 module Trainworks
   class FileParser
+    # When parsing the input file, format of the route is not correct
+    # InvalidRailroadInputFormat will be raised
     class InvalidRailroadInputFormat < ArgumentError
       def initialize(route_string)
         @route_string = route_string

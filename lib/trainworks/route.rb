@@ -1,4 +1,7 @@
 module Trainworks
+  # Route is used to group together the information
+  # of an edge of a graph. From and To are two nodes
+  # and distance is the weight between them
   class Route
     attr_accessor :from, :to, :distance
 
