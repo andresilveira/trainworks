@@ -6,8 +6,6 @@ describe Trainworks::Railroad do
   let(:railroad) { Trainworks::Railroad.new('examples/input.txt') }
 
   describe 'The distance of the route' do
-    before { pending 'Not implemented' }
-
     it 'A-B-C is 9' do
       expect(railroad.distance('A-B-C')).to eq(9)
     end

@@ -16,12 +16,11 @@ module Trainworks
       @graph = graph
     end
 
-    def distance(route_string)
+    def distance(cities)
       distance = 0
-      cities = route_string.split('-')
       begin
-        cities.each_cons(2) do |cities_pair|
-          distance += go(from: cities_pair.first, to: cities_pair.last)
+        cities.each_cons(2) do |(from, to)|
+          distance += go(from: from, to: to)
         end
       rescue NoSuchRoute => e
         distance = e.to_s
