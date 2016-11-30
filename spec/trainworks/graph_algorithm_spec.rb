@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Trainworks::GraphAlgorithm do
-  let(:graph){ Hash.new }
+  let(:graph) { Hash.new }
   let(:algorithm) { Trainworks::GraphAlgorithm.new(graph) }
 
   context 'when the graph is empty' do
@@ -27,7 +27,7 @@ describe Trainworks::GraphAlgorithm do
         end
 
         it 'returns the distance between cities even if they are not adjacent' do
-          expect(algorithm.distance('A-C')).to eq(10)
+          expect(algorithm.distance('A-B-C')).to eq(10)
         end
       end
 
