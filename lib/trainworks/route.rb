@@ -7,5 +7,11 @@ module Trainworks
       self.to       = to.to_s
       self.distance = distance.to_f
     end
+
+    def ==(another_route)
+      from == another_route.from &&
+      to == another_route.to &&
+      distance == another_route.distance
+    end
   end
 end
