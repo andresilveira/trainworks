@@ -10,6 +10,20 @@ describe Trainworks::GraphAlgorithm do
         expect(algorithm.distance(%w(A B))).to eq('NO SUCH ROUTE')
       end
     end
+
+    describe 'trips' do
+      it 'with_max_stops raises NO SUCH ROUTE' do
+        expect do
+          algorithm.trips_with_max_stops(from: 'A', to: 'B', stops: 5)
+        end.to raise_error(Trainworks::GraphAlgorithm::NoSuchRoute)
+      end
+
+      it 'with_exact_stops raises NO SUCH ROUTE' do
+        expect do
+          algorithm.trips_with_exact_stops(from: 'A', to: 'B', stops: 5)
+        end.to raise_error(Trainworks::GraphAlgorithm::NoSuchRoute)
+      end
+    end
   end
 
   context 'when the graph is not empty' do
