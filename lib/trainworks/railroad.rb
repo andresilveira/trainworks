@@ -16,5 +16,14 @@ module Trainworks
     def distance(route_string)
       @algorithm.distance(route_string.split('-'))
     end
+
+    # @param [String] from is the starting point
+    # @param [String] to is the goal
+    # @param [String] with_max_stops represents how many stops at most, the algorithm is allowed to 'walk'
+    # in any direction starting from 'from'
+    # @return [Array] a array of arrays which represents each path found
+    def trips(from:, to:, with_max_stops:)
+      @algorithm.trips_with_max_stops(from: from, to: to, stops: with_max_stops)
+    end
   end
 end
