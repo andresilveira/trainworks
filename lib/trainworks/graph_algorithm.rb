@@ -31,7 +31,7 @@ module Trainworks
 
     def trips_with_max_stops(from:, to:, stops:, total_paths: [from], solutions: [])
       routes(from).map do |city, _paths|
-        return total_paths if stops.negative?
+        return solutions if 0 >= stops
         next_total_paths = [*total_paths, city]
         solutions.push(next_total_paths) if city == to
         trips_with_max_stops(from: city, to: to, stops: stops - 1, total_paths: next_total_paths, solutions: solutions)
