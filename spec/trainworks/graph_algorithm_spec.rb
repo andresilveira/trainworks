@@ -44,6 +44,14 @@ describe Trainworks::GraphAlgorithm do
       context 'from B to A' do
         let(:trips) { algorithm.trips_with_max_stops(from: 'B', to: 'A', stops: stops) }
 
+        context 'when stops is equal -1' do
+          let(:stops) { -1 }
+
+          it 'is none' do
+            expect(trips).to be_empty
+          end
+        end
+
         context 'when stops is equal 0' do
           let(:stops) { 0 }
 
@@ -55,21 +63,29 @@ describe Trainworks::GraphAlgorithm do
         context 'when stops is equal 1' do
           let(:stops) { 1 }
 
-          it 'returns one route ["B", "C", "A"]' do
-            expect(trips).to eq([%w(B C A)])
+          it 'is none' do
+            expect(trips).to be_empty
           end
         end
 
         context 'when stops is equal 2' do
           let(:stops) { 2 }
 
-          it 'returns two routes ["B", "C", "A"] and ["B", "C", "D", "A"]' do
-            expect(trips).to eq([%w(B C A), %w(B C D A)])
+          it 'returns one route ["B", "C", "A"]' do
+            expect(trips).to eq([%w(B C A)])
           end
         end
 
         context 'when stops is equal 3' do
           let(:stops) { 3 }
+
+          it 'returns two routes ["B", "C", "A"] and ["B", "C", "D", "A"]' do
+            expect(trips).to eq([%w(B C A), %w(B C D A)])
+          end
+        end
+
+        context 'when stops is equal 4' do
+          let(:stops) { 4 }
 
           it 'returns two routes ["B", "C", "A"] and ["B", "C", "D", "A"]' do
             expect(trips).to eq([%w(B C A), %w(B C D A)])
