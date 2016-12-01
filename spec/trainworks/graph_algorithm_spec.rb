@@ -31,7 +31,7 @@ describe Trainworks::GraphAlgorithm do
       {
         'A' => { 'B' => 5 },
         'B' => { 'C' => 5 },
-        'C' => { 'A' => 1, 'D' => 1},
+        'C' => { 'A' => 1, 'D' => 1 },
         'D' => { 'A' => 1 }
       }
     end
@@ -147,7 +147,7 @@ describe Trainworks::GraphAlgorithm do
         context 'when stops is equal 3' do
           let(:stops) { 3 }
 
-          it 'returns one route ["B", "C", "D", "A"]' do
+          it 'returns one route ["B", "C", "A"]' do
             expect(trips).to eq([%w(B C D A)])
           end
         end
