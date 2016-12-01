@@ -39,6 +39,13 @@ module Trainworks
       solutions
     end
 
+    def trips_with_exact_stops(from: , to: , stops: )
+      total_path_size = stops + 1 # a path includes the stops plus the origin
+      trips_with_max_stops(from: from, to: to, stops: stops).select do |path|
+        path.size == total_path_size
+      end
+    end
+
     # NoSuchRoute is raised when there are no direct connection between two cities (nodes)
     class NoSuchRoute < KeyError
       def to_s
