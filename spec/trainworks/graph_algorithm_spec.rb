@@ -93,5 +93,59 @@ describe Trainworks::GraphAlgorithm do
         end
       end
     end
+
+    describe 'trips_with_exact_stops' do
+      context 'from B to A' do
+        let(:trips) { algorithm.trips_with_exact_stops(from: 'B', to: 'A', stops: stops) }
+
+        context 'when stops is equal -1' do
+          let(:stops) { -1 }
+
+          it 'is none' do
+            expect(trips).to be_empty
+          end
+        end
+
+        context 'when stops is equal 0' do
+          let(:stops) { 0 }
+
+          it 'is none' do
+            expect(trips).to be_empty
+          end
+        end
+
+        context 'when stops is equal 1' do
+          let(:stops) { 1 }
+
+          it 'is none' do
+            expect(trips).to be_empty
+          end
+        end
+
+        context 'when stops is equal 2' do
+          let(:stops) { 2 }
+
+          it 'returns one route ["B", "C", "A"]' do
+            expect(trips).to eq([%w(B C A)])
+          end
+        end
+
+        context 'when stops is equal 3' do
+          let(:stops) { 3 }
+
+          it 'returns one route ["B", "C", "D", "A"]' do
+            expect(trips).to eq([%w(B C D A)])
+          end
+        end
+
+        context 'when stops is equal 4' do
+          let(:stops) { 4 }
+
+          it 'is none' do
+            expect(trips).to be_empty
+          end
+        end
+      end
+    end
   end
 end

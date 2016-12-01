@@ -44,9 +44,8 @@ describe Trainworks::Railroad do
       expect(railroad.trips(from: 'C', to: 'C', with_max_stops: 3).count).to eq(2)
     end
 
-    it 'starting at A and ending at C with exactly 4 stopsis 3' do
-      pending 'not implemented'
-      expect(railroad.trips(from: 'A', to: 'C', with_exactly_stops: 10).count).to eq(3)
+    it 'starting at A and ending at C with exactly 4 stops 3' do
+      expect(railroad.trips(from: 'A', to: 'C', with_exact_stops: 4).count).to eq(3)
     end
 
     it 'from C to C with a distance of less than 30 is 7' do
