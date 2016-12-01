@@ -188,32 +188,32 @@ describe Trainworks::GraphAlgorithm do
           end
         end
 
-        context 'when max_distance is equal 1' do
-          let(:max_distance) { 1 }
+        context 'when max_distance is equal 6' do
+          let(:max_distance) { 6 }
 
           it 'is none' do
             expect(trips).to be_empty
           end
         end
 
-        context 'when max_distance is equal 6' do
-          let(:max_distance) { 6 }
+        context 'when max_distance is equal 7' do
+          let(:max_distance) { 7 }
 
           it 'returns one route ["B", "C", "A"]' do
             expect(trips).to eq([%w(B C A)])
           end
         end
 
-        context 'when max_distance is equal 7' do
-          let(:max_distance) { 7 }
+        context 'when max_distance is equal 8' do
+          let(:max_distance) { 8 }
 
           it 'returns two routes ["B", "C", "A"] and ["B", "C", "D", "A"]' do
             expect(trips).to eq([%w(B C A), %w(B C D A)])
           end
         end
 
-        context 'when max_distance is equal 8' do
-          let(:max_distance) { 8 }
+        context 'when max_distance is equal 9' do
+          let(:max_distance) { 9 }
 
           it 'returns two routes ["B", "C", "A"] and ["B", "C", "D", "A"]' do
             expect(trips).to eq([%w(B C A), %w(B C D A)])
