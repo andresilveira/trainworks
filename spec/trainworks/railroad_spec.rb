@@ -21,4 +21,26 @@ describe Trainworks::Railroad do
       railroad.distance('A-B-C')
     end
   end
+
+  describe 'calling #trips(from: "A", to: "B", with_max_stops: 5)' do
+    it 'calls trips_with_max_stops on its graph_algorithm passing from, to and stops' do
+      expect(algorithm_instance).to receive(:trips_with_max_stops).once.with(
+        from: 'A',
+        to: 'B',
+        stops: 5
+      )
+      railroad.trips(from: 'A', to: 'B', with_max_stops: 5)
+    end
+  end
+
+  describe 'calling #trips(from: "A", to: "B", with_exact_stops: 5)' do
+    it 'calls trips_with_max_stops on its graph_algorithm passing from, to and stops' do
+      expect(algorithm_instance).to receive(:trips_with_exact_stops).once.with(
+        from: 'A',
+        to: 'B',
+        stops: 5
+      )
+      railroad.trips(from: 'A', to: 'B', with_exact_stops: 5)
+    end
+  end
 end
