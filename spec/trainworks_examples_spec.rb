@@ -49,7 +49,6 @@ describe Trainworks::Railroad do
     end
 
     it 'from C to C with a distance of less than 30 is 7' do
-      pending 'not implemented'
       expect(railroad.trips(from: 'A', to: 'B', with_max_distance: 30)).to eq(7)
     end
   end
