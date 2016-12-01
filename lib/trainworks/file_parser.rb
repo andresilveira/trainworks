@@ -3,7 +3,7 @@ require 'trainworks/file_parser/invalid_railroad_input_format'
 module Trainworks
   # FileParser is responsible for parsing the input file
   # @example
-  #   AB5, cd99, LetterLetterNumber
+  #   AB5, cd99, LetterLetterPositiveNumbers
   class FileParser
     # captures, for example, AB99
     SINGLE_TUPLE_REGEX = /(?<from>[a-zA-Z])(?<to>[a-zA-Z])(?<distance>\d+)/
