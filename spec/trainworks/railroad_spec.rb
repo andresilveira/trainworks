@@ -43,4 +43,15 @@ describe Trainworks::Railroad do
       railroad.trips(from: 'A', to: 'B', with_exact_stops: 5)
     end
   end
+
+  describe 'calling #trips(from: "A", to: "B", with_max_distance: 5)' do
+    it 'calls trips_with_max_distance on its graph_algorithm passing from, to and max_distance' do
+      expect(algorithm_instance).to receive(:trips_with_max_distance).once.with(
+        from: 'A',
+        to: 'B',
+        max_distance: 5
+      )
+      railroad.trips(from: 'A', to: 'B', with_max_distance: 5)
+    end
+  end
 end
