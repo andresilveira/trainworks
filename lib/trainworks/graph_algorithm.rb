@@ -46,6 +46,26 @@ module Trainworks
       end
     end
 
+    # rubocop:disable MethodLength
+    # rubocop:disable ParameterLists
+    def trips_with_max_distance(from:, to:, max_distance:, total_paths: [from], solutions: {}, current_distance: 0)
+      routes(from).map do |city, _paths|
+        next_current_distance = current_distance + go(from: from, to: city)
+        return solutions.keys if next_current_distance >= max_distance
+        next_total_paths = [*total_paths, city]
+        solutions[next_total_paths] = next_current_distance if city == to
+        trips_with_max_distance(
+          from: city,
+          to: to,
+          max_distance: max_distance,
+          total_paths: next_total_paths,
+          solutions: solutions,
+          current_distance: next_current_distance
+        )
+      end
+      solutions.keys
+    end
+
     # NoSuchRoute is raised when there are no direct connection between two cities (nodes)
     class NoSuchRoute < KeyError
       def to_s

@@ -35,7 +35,7 @@ describe Trainworks::Railroad do
     end
 
     it 'from B to B is 9' do
-      expect(railroad.shortest_distance(from: 'A', to: 'C')).to eq(9)
+      expect(railroad.shortest_distance(from: 'B', to: 'B')).to eq(9)
     end
   end
 
@@ -49,8 +49,7 @@ describe Trainworks::Railroad do
     end
 
     it 'from C to C with a distance of less than 30 is 7' do
-      pending 'not implemented'
-      expect(railroad.trips(from: 'A', to: 'B', with_max_distance: 30)).to eq(7)
+      expect(railroad.trips(from: 'C', to: 'C', with_max_distance: 30).count).to eq(7)
     end
   end
 end
