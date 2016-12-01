@@ -23,6 +23,12 @@ describe Trainworks::GraphAlgorithm do
           algorithm.trips_with_exact_stops(from: 'A', to: 'B', stops: 5)
         end.to raise_error(Trainworks::GraphAlgorithm::NoSuchRoute)
       end
+
+      it 'with_max_distance raises NO SUCH ROUTE' do
+        expect do
+          algorithm.trips_with_max_distance(from: 'A', to: 'B', max_distance: 5)
+        end.to raise_error(Trainworks::GraphAlgorithm::NoSuchRoute)
+      end
     end
   end
 
@@ -157,6 +163,60 @@ describe Trainworks::GraphAlgorithm do
 
           it 'is none' do
             expect(trips).to be_empty
+          end
+        end
+      end
+    end
+
+    describe 'trips_with_max_distance' do
+      context 'from B to A' do
+        let(:trips) { algorithm.trips_with_max_distance(from: 'B', to: 'A', max_distance: max_distance) }
+
+        context 'when max_distance is negative' do
+          let(:max_distance) { -1 }
+
+          it 'is none' do
+            expect(trips).to be_empty
+          end
+        end
+
+        context 'when max_distance is equal 0' do
+          let(:max_distance) { 0 }
+
+          it 'is none' do
+            expect(trips).to be_empty
+          end
+        end
+
+        context 'when max_distance is equal 1' do
+          let(:max_distance) { 1 }
+
+          it 'is none' do
+            expect(trips).to be_empty
+          end
+        end
+
+        context 'when max_distance is equal 6' do
+          let(:max_distance) { 6 }
+
+          it 'returns one route ["B", "C", "A"]' do
+            expect(trips).to eq([%w(B C A)])
+          end
+        end
+
+        context 'when max_distance is equal 7' do
+          let(:max_distance) { 7 }
+
+          it 'returns two routes ["B", "C", "A"] and ["B", "C", "D", "A"]' do
+            expect(trips).to eq([%w(B C A), %w(B C D A)])
+          end
+        end
+
+        context 'when max_distance is equal 8' do
+          let(:max_distance) { 8 }
+
+          it 'returns two routes ["B", "C", "A"] and ["B", "C", "D", "A"]' do
+            expect(trips).to eq([%w(B C A), %w(B C D A)])
           end
         end
       end
