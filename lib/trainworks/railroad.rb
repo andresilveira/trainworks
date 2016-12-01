@@ -28,7 +28,7 @@ module Trainworks
       elsif with_exact_stops
         @algorithm.trips_with_exact_stops(from: from, to: to, stops: with_exact_stops)
       elsif with_max_distance
-        @algorithm.trips_with_max_distance(from: from, to: to, distance: with_max_distance)
+        @algorithm.trips_with_max_distance(from: from, to: to, max_distance: with_max_distance)
       else
         raise "I don't know how to calculate these routes"
       end
