@@ -33,7 +33,9 @@ describe Trainworks::GraphAlgorithm do
 
     describe 'shortest_distance' do
       it 'returns NO SUCH ROUTE' do
-        expect { algorithm.shortest_distance(from: 'A', to: 'B') }.to raise_error(Trainworks::GraphAlgorithm::NoSuchRoute)
+        expect { algorithm.shortest_distance(from: 'A', to: 'B') }.to raise_error(
+          Trainworks::GraphAlgorithm::NoSuchRoute
+        )
       end
     end
   end
