@@ -28,8 +28,6 @@ describe Trainworks::Railroad do
   end
 
   describe 'The length of the shortest route (in terms of distance to travel)' do
-    before { pending 'Not implemented' }
-
     it 'from A to C is 9' do
       expect(railroad.shortest_distance(from: 'A', to: 'C')).to eq(9)
     end
