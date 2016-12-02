@@ -54,4 +54,14 @@ describe Trainworks::Railroad do
       railroad.trips(from: 'A', to: 'B', with_max_distance: 5)
     end
   end
+
+  describe 'calling #shortest_distance(from: "A", to: "B")' do
+    it 'calls shortest_distance on its graph_algorithm passing from and to' do
+      expect(algorithm_instance).to receive(:shortest_distance).once.with(
+        from: 'A',
+        to: 'B'
+      )
+      railroad.shortest_distance(from: 'A', to: 'B')
+    end
+  end
 end
