@@ -1,4 +1,4 @@
-# Trainworks
+# Trainworks 🚂
 [![Build Status](https://semaphoreci.com/api/v1/projects/14ca60dd-4c8c-4c22-a419-b888d253491c/1073642/shields_badge.svg)](https://semaphoreci.com/andresilveirah/trainworks)
 
 ## Problem Definition
@@ -48,6 +48,12 @@ Output #10: 7
 
 ## Installation
 
+**Note:** Since the project is not yet publicly available, there's no way to fork/clone/install it from [Rubygems](https://rubygems.org/).
+
+First you'll need [Bundler](http://bundler.io/) in order to install the dependencies (which are only necessary for development).
+
+    $ gem install bundler
+
 Add this line to your application's Gemfile:
 
 ```ruby
@@ -67,25 +73,39 @@ Or install it yourself as:
 ```ruby
 require 'trainworks'
 
-railroad = Trainworks::Railroad.new('path_to_input_file')
+railroad = Trainworks::Railroad.new('examples/input.txt')
+
 # assuming you have the following graph
 # AB5, BC4, CD8, DC8, DE6, AD5, CE2, EB3, AE7
 railroad.distance("A-B-C")
-# => 9
+# => 9.0
+
 railroad.distance("A-Z")
 # => "NO SUCH ROUTE"
+
 railroad.shortest_distance(from: "A", to: "C")
-# => 9
+# => 9.0
+
 railroad.trips(from: "C", to: "C", with_max_stops: 3)
 # => [["C","D","C"], ["C","E","B","C"]]
-railroad.trips(from: "A", to: "C", with_exactly_stops: 10)
-# => [["B","C","D"], ["D","C","D], ["D","E","B"]]
-railroad.trips(from: "A", to: "B", with_max_distance: 10)
+
+railroad.trips(from: "A", to: "C", with_exact_stops: 4)
+# => [["A", "B", "C", "D", "C"], ["A", "D", "C", "D", "C"], ["A", "D", "E", "B", "C"]]
+
+railroad.trips(from: "C", to: "C", with_max_distance: 30)
 # => [["C","D","C"], ["C","E","B","C"], ["C","E","B","C","D","C"], ["C","D","C","E","B","C"], ["C","D","E","B","C"], ["C","E","B","C","E","B","C"], ["C","E","B","C","E","B","C","E","B","C"]]
 ```
 
-## Development
+## Development & Contribution
 
+**Note:** This section is only valid after the project is publicly available.
+
+1. Fork this repository.
+2. Clone it into your machine and run `bundle install`.
+3. Add your changes.
+4. Make sure the specs are green by running `rspec`.
+5. Make sure the code style is respected by running `rubocop`.
+6. Open a pull request.
 
 ## License
 
