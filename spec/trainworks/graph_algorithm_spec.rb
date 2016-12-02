@@ -33,7 +33,7 @@ describe Trainworks::GraphAlgorithm do
 
     describe 'shortest_distance' do
       it 'returns NO SUCH ROUTE' do
-        expect(algorithm.shortest_distance(from: 'A', to: 'B')).to eq('NO SUCH ROUTE')
+        expect { algorithm.shortest_distance(from: 'A', to: 'B') }.to raise_error(Trainworks::GraphAlgorithm::NoSuchRoute)
       end
     end
   end
@@ -255,14 +255,14 @@ describe Trainworks::GraphAlgorithm do
         context 'to A' do
           let(:to) { 'A' }
 
-          it { is_expected.to eq(12) }
+          it { is_expected.to eq(11) }
         end
 
         context 'to an unreacheable city Z' do
           let(:to) { 'Z' }
 
           it 'should raise an error of no such route' do
-            expect { shortest_distance }.to raise_error(Trainworks::GraphAlgorithm::NoSuchRoute) }
+            expect { shortest_distance }.to raise_error(Trainworks::GraphAlgorithm::NoSuchRoute)
           end
         end
       end
