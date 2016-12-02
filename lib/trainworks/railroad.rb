@@ -33,5 +33,9 @@ module Trainworks
         raise "I don't know how to calculate these routes"
       end
     end
+
+    def shortest_distance(from: , to: )
+      @algorithm.shortest_distance(from: from, to: to)
+    end
   end
 end
