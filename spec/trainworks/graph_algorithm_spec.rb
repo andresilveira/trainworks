@@ -229,7 +229,7 @@ describe Trainworks::GraphAlgorithm do
     end
 
     describe 'shortest_distance' do
-      subject { algorithm.shortest_distance(from: from, to: to) }
+      subject(:shortest_distance) { algorithm.shortest_distance(from: from, to: to) }
 
       context 'from A' do
         let(:from) { 'A' }
@@ -256,6 +256,14 @@ describe Trainworks::GraphAlgorithm do
           let(:to) { 'A' }
 
           it { is_expected.to eq(12) }
+        end
+
+        context 'to an unreacheable city Z' do
+          let(:to) { 'Z' }
+
+          it 'should raise an error of no such route' do
+            expect { shortest_distance }.to raise_error(Trainworks::GraphAlgorithm::NoSuchRoute) }
+          end
         end
       end
     end
