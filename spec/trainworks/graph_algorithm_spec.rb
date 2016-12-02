@@ -30,6 +30,14 @@ describe Trainworks::GraphAlgorithm do
         end.to raise_error(Trainworks::GraphAlgorithm::NoSuchRoute)
       end
     end
+
+    describe 'shortest_distance' do
+      it 'returns NO SUCH ROUTE' do
+        expect { algorithm.shortest_distance(from: 'A', to: 'B') }.to raise_error(
+          Trainworks::GraphAlgorithm::NoSuchRoute
+        )
+      end
+    end
   end
 
   context 'when the graph is not empty' do
@@ -217,6 +225,46 @@ describe Trainworks::GraphAlgorithm do
 
           it 'returns two routes ["B", "C", "A"] and ["B", "C", "D", "A"]' do
             expect(trips).to eq([%w(B C A), %w(B C D A)])
+          end
+        end
+      end
+    end
+
+    describe 'shortest_distance' do
+      subject(:shortest_distance) { algorithm.shortest_distance(from: from, to: to) }
+
+      context 'from A' do
+        let(:from) { 'A' }
+
+        context 'to B' do
+          let(:to) { 'B' }
+
+          it { is_expected.to eq(5) }
+        end
+
+        context 'to C' do
+          let(:to) { 'C' }
+
+          it { is_expected.to eq(10) }
+        end
+
+        context 'to D' do
+          let(:to) { 'D' }
+
+          it { is_expected.to eq(11) }
+        end
+
+        context 'to A' do
+          let(:to) { 'A' }
+
+          it { is_expected.to eq(11) }
+        end
+
+        context 'to an unreacheable city Z' do
+          let(:to) { 'Z' }
+
+          it 'should raise an error of no such route' do
+            expect { shortest_distance }.to raise_error(Trainworks::GraphAlgorithm::NoSuchRoute)
           end
         end
       end

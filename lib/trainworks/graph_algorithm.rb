@@ -66,6 +66,29 @@ module Trainworks
       solutions.keys
     end
 
+    def trips(from:, to:, current_distance: 0, current_path: [from], all_paths: {})
+      routes(from).map do |city, _paths|
+        next_current_path = [*current_path, city]
+        next_current_distance = current_distance + go(from: from, to: city)
+        all_paths[next_current_path] = next_current_distance if city == to
+        next if city == to || next_current_path.count(city) == 2
+        trips(
+          from: city,
+          to: to,
+          current_distance: next_current_distance,
+          current_path: next_current_path,
+          all_paths: all_paths
+        )
+      end
+      all_paths
+    end
+
+    def shortest_distance(from:, to:)
+      shortest_distance = trips(from: from, to: to).values.min
+      raise NoSuchRoute if shortest_distance.nil?
+      shortest_distance
+    end
+
     # NoSuchRoute is raised when there are no direct connection between two cities (nodes)
     class NoSuchRoute < KeyError
       def to_s
