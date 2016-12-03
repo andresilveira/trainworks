@@ -1,21 +1,25 @@
+# rubocop:disable MethodLength
+# rubocop:disable ParameterLists
+
 module Trainworks
   # GraphAlgorithm is used to calculate direct distances,
   # shortest path and other paths between nodes.
-  # It assumes graph is a hash of adjacencies of a directed-weighted-possibly-cyclic-graph
-  # @example
-  # {
+  # It assumes graph is a hash of adjacencies of a **directed-positively-weighted-possibly-cyclic-graph**
+  # @example Example of a graph
   #   'A' => { 'B' => 5 },
   #   'B' => { 'C' => 5 },
   #   'C' => { 'B' => 4 }
-  # }
-  # In this graph, the node 'A' is connected to 'B' and have a distance of 5. The node
-  # 'B' is connected to 'C' with distance 5 as well. And finally, the node 'C' has a
-  # connection to 'B' with distance 4.
+  #
   class GraphAlgorithm
     def initialize(graph)
       @graph = graph
     end
 
+    # @param [Array] cities is a set of nodes
+    # @return [Number] the distance traveled from city to city in cities
+    # @return [String] "NO SUCH ROUTE" when one of the citis is not connected to another
+    # @example
+    #   algorithm.distance(['A', 'B', 'C']) => 10
     def distance(cities)
       distance = 0
       begin
@@ -29,6 +33,10 @@ module Trainworks
       distance
     end
 
+    # @param [Object] from the starting point
+    # @param [Object] to the goal
+    # @param [Number] stops the maximum number of stops between from and to the algorithm is allowed to travel
+    # @return [Array<Array>] all possible trips from the starting point to the goal with maximum stops equal to `stops`
     def trips_with_max_stops(from:, to:, stops:, total_paths: [from], solutions: [])
       routes(from).map do |city, _paths|
         return solutions if 0 >= stops
@@ -39,6 +47,12 @@ module Trainworks
       solutions
     end
 
+    # @param [Object] from the starting point
+    # @param [Object] to the goal
+    # @param [Number] stops the maximum number of stops between from and to the algorithm is allowed to travel
+    # @return [Array<Array>] all possible trips from the starting point to the goal with maximum stops equal to `stops`
+    # @see GraphAlgorithm#trips_with_max_stops #trips_with_max_stops
+    # it calls {trips_with_max_stops} and filter out the trips that don't have the exact number of stops as `stops`
     def trips_with_exact_stops(from:, to:, stops:)
       total_path_size = stops + 1 # a path includes the stops plus the origin
       trips_with_max_stops(from: from, to: to, stops: stops).select do |path|
@@ -46,8 +60,10 @@ module Trainworks
       end
     end
 
-    # rubocop:disable MethodLength
-    # rubocop:disable ParameterLists
+    # @param [Object] from the starting point
+    # @param [Object] to the goal
+    # @param [Number] max_distance the maximum distance between from and to the algorithm is allowed to travel
+    # @return [Array<Array>] all possible trips from the starting point to the goal with maximum stops equal to `max_distance`
     def trips_with_max_distance(from:, to:, max_distance:, total_paths: [from], solutions: {}, current_distance: 0)
       routes(from).map do |city, _paths|
         next_current_distance = current_distance + go(from: from, to: city)
@@ -66,6 +82,9 @@ module Trainworks
       solutions.keys
     end
 
+    # @param [Object] from the starting point
+    # @param [Object] to the goal
+    # @return [Hash] all possible trips from the starting point to the goal without repeating loops
     def trips(from:, to:, current_distance: 0, current_path: [from], all_paths: {})
       routes(from).map do |city, _paths|
         next_current_path = [*current_path, city]
@@ -83,6 +102,13 @@ module Trainworks
       all_paths
     end
 
+    # @param [Object] from the starting point
+    # @param [Object] to the goal
+    # @return [Number] the shortest distance from `from` to `to`
+    # @see GraphAlgorithm#trips #trips
+    # @raise NoSuchRoute
+    # It calls {trips} to find all paths between the starting point and the goal and returns
+    # the shortest distance found. If there's no path between `from` and `to` it raises {NoSuchRoute}
     def shortest_distance(from:, to:)
       shortest_distance = trips(from: from, to: to).values.min
       raise NoSuchRoute if shortest_distance.nil?

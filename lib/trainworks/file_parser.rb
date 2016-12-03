@@ -9,13 +9,12 @@ module Trainworks
     SINGLE_TUPLE_REGEX = /(?<from>[a-zA-Z])(?<to>[a-zA-Z])(?<distance>\d+)/
 
     # Converts the object into textual markup given a specific format.
-    #
     # @param file_path [String] the path for input file
     def initialize(file_path)
       @raw_content = File.read(file_path)
     end
 
-    # @return [Array] array of tuples in the form ["A", "B", 10] for a tuple AB10
+    # @return [Array<Route>] array of {Route}s
     # @raise [InvalidRailroadInputFormat] if the tuple doesn't match SINGLE_TUPLE_REGEX
     def parse
       clean_string(@raw_content).split(',').map do |route_string|
@@ -32,7 +31,7 @@ module Trainworks
 
     private
 
-    # removes everything from the input except letters, numbers and commas
+    # removes special characters from the input except letters, numbers and commas
     # @private
     def clean_string(text)
       text.gsub(/[^0-9A-Za-z\,]/, '')

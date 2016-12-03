@@ -1,27 +1,34 @@
 module Trainworks
   # Railroad is the entry point for Trainworks gem
-  # it accepts the path of the input file and optionally
-  # a class to parse this file,
-  # a class to build the graph
-  # and a class that will implement the graph related algorithms
   class Railroad
+    # @param [String] file_path is the path for the input file containing the graph definition
+    # @param [Object] file_parser is the class responsible for parsing the input file and return a set of {Route}s
+    # @param [Object] graph_builder receives the set of {Route}s and build a graph that the `graph_algorithm` can deal with
+    # @param [Object] graph_algorithm is the responsible for calculating the distances between nodes, paths, etc. See also {GraphAlgorithm}
     def initialize(file_path, file_parser: FileParser, graph_builder: GraphBuilder, graph_algorithm: GraphAlgorithm)
       @file_parser = file_parser.new(file_path)
       @graph = graph_builder.build(@file_parser.parse)
       @algorithm = graph_algorithm.new(@graph)
     end
 
-    # @param [String] a string representing the route to be followed. E.g. A-B-C
+    # @param [String] route_string represents the route to be followed. E.g. A-B-C
     # @return [Number] the distance from A to B to C
+    # Calculates the distance traveled between cities in the form of `"A-B-C"`
     def distance(route_string)
       @algorithm.distance(route_string.split('-'))
     end
 
-    # @param [String] from is the starting point
-    # @param [String] to is the goal
-    # @param [String] with_max_stops represents how many stops at most, the algorithm is allowed to 'walk'
-    # in any direction starting from 'from'
-    # @return [Array] a array of arrays which represents each path found
+    # @param [Object] from is the starting point
+    # @param [Object] to is the goal
+    # @param [Number] with_max_stops represents how many stops at most, the algorithm is allowed to *travel*.
+    # @param [Number] with_exact_stops represents how many stops exactly, the algorithm is allowed to *travel*.
+    # @param [Number] with_max_distance represents the maximum distance (non inclusive), the algorithm is allowed to *travel* in any direction starting from `from`.
+    # @return [Array<Array>] which represents each path found
+    # Notice that only one of the parameters `with_max_stops`, `with_exact_stops` or `with_max_distance` will be taken into account, in the following order:
+    #
+    # 1. `with_max_stops`
+    # 2. `with_exact_stops`
+    # 3. `with_max_distance`
     def trips(from:, to:, with_max_stops: nil, with_exact_stops: nil, with_max_distance: nil)
       if with_max_stops
         @algorithm.trips_with_max_stops(from: from, to: to, stops: with_max_stops)
@@ -34,6 +41,10 @@ module Trainworks
       end
     end
 
+    # @param [Object] from is the starting point
+    # @param [Object] to is the goal
+    # @return [Number] the shortest distance between `from` and `to`
+    # Calculates the shortest distance between `from` and `to`
     def shortest_distance(from:, to:)
       @algorithm.shortest_distance(from: from, to: to)
     end
