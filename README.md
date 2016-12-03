@@ -48,7 +48,7 @@ Output #10: 7
 
 ## Installation
 
-**Note:** Since the project is not yet publicly available, there's no way to fork/clone/install it from [Rubygems](https://rubygems.org/).
+**Note:** Since the project is not yet publicly available, there's no way to fork/clone/install it from [Rubygems](https://rubygems.org/). The only way to use the gem is getting its source code and running `rake install`. It will install the local gem so you'll be able to require it in `irb` for example.
 
 First you'll need [Bundler](http://bundler.io/) in order to install the dependencies (which are only necessary for development).
 
