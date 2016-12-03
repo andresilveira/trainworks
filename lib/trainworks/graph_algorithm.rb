@@ -41,7 +41,7 @@ module Trainworks
       routes(from).map do |city, _paths|
         return solutions if 0 >= stops
         next_total_paths = [*total_paths, city]
-        solutions.push(next_total_paths) if city == to
+        solutions.push(next_total_paths) if arrived?(city, to)
         trips_with_max_stops(from: city, to: to, stops: stops - 1, total_paths: next_total_paths, solutions: solutions)
       end
       solutions
@@ -63,13 +63,15 @@ module Trainworks
     # @param [Object] from the starting point
     # @param [Object] to the goal
     # @param [Number] max_distance the maximum distance between from and to the algorithm is allowed to travel
-    # @return [Array<Array>] all possible trips from the starting point to the goal with maximum stops equal to `max_distance`
+    # @return [Array<Array>] all trips from the starting point to the goal with maximum stops equal to `max_distance`
+    # Since we calculate the distance by adding up the distances between the nodes, the edges must have positive
+    # distances otherwise it's not garateed the algorithm will reach a stop.
     def trips_with_max_distance(from:, to:, max_distance:, total_paths: [from], solutions: {}, current_distance: 0)
       routes(from).map do |city, _paths|
         next_current_distance = current_distance + go(from: from, to: city)
         return solutions.keys if next_current_distance >= max_distance
         next_total_paths = [*total_paths, city]
-        solutions[next_total_paths] = next_current_distance if city == to
+        solutions[next_total_paths] = next_current_distance if arrived?(city, to)
         trips_with_max_distance(
           from: city,
           to: to,
@@ -89,8 +91,8 @@ module Trainworks
       routes(from).map do |city, _paths|
         next_current_path = [*current_path, city]
         next_current_distance = current_distance + go(from: from, to: city)
-        all_paths[next_current_path] = next_current_distance if city == to
-        next if city == to || next_current_path.count(city) == 2
+        all_paths[next_current_path] = next_current_distance if arrived?(city, to)
+        next if arrived?(city, to) || already_visited?(next_current_path, city)
         trips(
           from: city,
           to: to,
@@ -124,12 +126,24 @@ module Trainworks
 
     private
 
-    def routes(city)
-      @graph.fetch(city) { raise NoSuchRoute }
+    def arrived?(current, goal)
+      current == goal
     end
 
+    # if the current_city can be found more than one time in the path
+    # it means we already visited it.
+    def already_visited?(path, current_city)
+      path.count(current_city) > 1
+    end
+
+    # these are helper methods to deal with finding keys in the graph an its value
+    # in case of not finding the keys (`from` and `to`) it raises `NoSuchRoute`
     def go(from:, to:)
       routes(from).fetch(to) { raise NoSuchRoute }
+    end
+
+    def routes(city)
+      @graph.fetch(city) { raise NoSuchRoute }
     end
   end
 end
