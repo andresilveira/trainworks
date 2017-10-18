@@ -48,8 +48,6 @@ Output #10: 7
 
 ## Installation
 
-**Note:** Since the project is not yet publicly available, there's no way to fork/clone/install it from [Rubygems](https://rubygems.org/). The only way to use the gem is getting its source code and running `rake install`. It will install the local gem so you'll be able to require it in `irb` for example.
-
 First you'll need [Bundler](http://bundler.io/) in order to install the dependencies (which are only necessary for development).
 
     $ gem install bundler
@@ -64,19 +62,25 @@ And then execute:
 
     $ bundle
 
-Or install it yourself as:
+Or install it manually as:
 
     $ gem install trainworks
 
 ## Usage
 
+Create the railroad file with the following.
+```
+AB5, BC4, CD8, DC8, DE6, AD5, CE2, EB3, AE7
+```
+The first letter represents the starting point, the second represents the
+destination and the digit afterward is the distance between the two.
+
 ```ruby
 require 'trainworks'
 
-railroad = Trainworks::Railroad.new('examples/input.txt')
+# assuming the file describing the railroad is at ./railroad.txt
+railroad = Trainworks::Railroad.new('./railroad.txt')
 
-# assuming you have the following graph
-# AB5, BC4, CD8, DC8, DE6, AD5, CE2, EB3, AE7
 railroad.distance("A-B-C")
 # => 9.0
 
@@ -97,8 +101,6 @@ railroad.trips(from: "C", to: "C", with_max_distance: 30)
 ```
 
 ## Development & Contribution
-
-**Note:** This section is only valid after the project is publicly available.
 
 1. Fork this repository.
 2. Clone it into your machine and run `bundle install`.

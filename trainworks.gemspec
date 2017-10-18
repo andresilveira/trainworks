@@ -7,11 +7,10 @@ require 'trainworks/version'
 Gem::Specification.new do |spec|
   spec.name          = 'trainworks'
   spec.version       = Trainworks::VERSION
-  spec.authors       = ['AH']
-  spec.email         = ['']
-
+  spec.authors       = ['André Herculano']
+  spec.email         = ['andresilveirah@gmail.com']
+  spec.homepage    = 'https://rubygems.org/gems/example'
   spec.summary       = 'Models a railroad as a graph and offers some traversing methods.'
-  spec.homepage      = ''
   spec.license       = 'MIT'
 
   spec.files         = `git ls-files -z`.split("\x0").reject do |f|
